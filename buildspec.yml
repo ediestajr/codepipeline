@@ -1,0 +1,20 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodeks: 12
+  pre_build:
+    commands:
+      - echo "Installing dependencies"
+      - TIME=$(date +"%Y%m%d_%H%M%S")
+  build:
+      - npm install
+      - echo "test"
+      - npm test
+  post_build:
+    commands:
+      - echo "zipping reports"
+      - cd reports
+      - zip -r reports.${TIME}.zip .
+      - aws s3 cp reports.${TIME}.zip s3://edcodepipelinebucket/reports.${TIME}.zip 
+      - echo "Done"
