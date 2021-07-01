@@ -8,6 +8,7 @@ phases:
       - echo "Installing dependencies"
       - TIME=$(date +"%Y%m%d_%H%M%S")
   build:
+    commands:
       - npm install
       - echo "test"
       - npm test
